@@ -1,0 +1,29 @@
+.nav-links {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    text-transform: uppercase;
+    justify-content: space-between;
+}
+
+.nav-link-text {
+    &:hover {
+        background-color: white;
+        border-radius: 4px;
+        padding: 2px 7px;
+        color: #1976d2;
+        cursor: pointer;
+    }
+}
+
+.nav-link-text-selected {
+
+    background-color: white;
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: #1976d2;
+    cursor: none;
+
+
+}

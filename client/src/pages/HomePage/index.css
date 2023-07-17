@@ -1,0 +1,113 @@
+.home-background {
+    width: 100%;
+    height: 600px;
+    background-image: url('../../images/homeBackground.jpg');
+    background-size: cover;
+    font-family: "Rubik";
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.home-page-content {
+    max-width: 500px;
+    margin-left: 50px;
+    color: black;
+    font-size: 60px;
+
+}
+
+.home-page-content-button {
+    width: 250px;
+}
+
+.home-courses {
+    padding: 30px 10px 10px 10px;
+}
+
+.home-course-heading {
+    color: #494949;
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+}
+.home-short-course-heading{
+    color: #494949;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-bottom: 25px;
+
+}
+
+@media screen and (max-width: 1100px) {
+    .home-course-heading {
+        font-size: 40px;
+       
+    }
+}
+@media screen and (max-width: 850px) {
+    .home-course-heading {
+        font-size: 30px;
+       
+    }
+    .home-background {
+        
+        height: 500px;
+       
+    }
+    .home-page-content {
+        max-width: 350px;
+        font-size: 40px;
+        margin-left: 30px;
+
+    }
+
+    .home-page-content-button {
+        width: 180px;
+    }
+    .home-short-course-heading{
+        font-size: 20px;
+        
+
+    }
+}
+@media screen and (max-width: 550px) {
+    .home-background {
+        height: 450px;
+    }
+    .home-page-content {
+        max-width: 250px;
+        font-size: 35px;
+        margin-left: 20px;
+        
+    }
+    .home-course-heading {
+        font-size: 20px;
+       
+    }
+    .home-short-course-heading{
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    
+}
+@media screen and (max-width: 400px) {
+    .home-background {
+        height: 400px;
+    }
+    .home-page-content {
+        max-width: 250px;
+        margin-left: 10px;
+    }
+    .home-page-content-button {
+        width: 130px;
+        font-size: xx-small !important;
+    }
+
+   
+}
+
+
+
