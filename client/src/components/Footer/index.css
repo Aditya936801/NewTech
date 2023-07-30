@@ -54,6 +54,13 @@
     justify-content: space-between;
     
 }
+.footer-contact-links{
+   margin-top: auto;
+   margin-bottom: auto;
+    
+    
+    
+}
 
   }
 @media only screen and (max-width: 550px) {

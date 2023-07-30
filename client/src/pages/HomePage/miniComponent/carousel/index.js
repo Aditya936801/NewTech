@@ -37,9 +37,9 @@ const Carousel=()=> {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {courses?.map((el) => {
+        {courses?.map((el,index) => {
           return (
-            <SwiperSlide className="courses-container">
+            <SwiperSlide key={index} className="courses-container">
               <img src={el.image} alt="" />
               <div className="courses-content-wrapper">
                 <div className="courses-heading">{el.name}</div>

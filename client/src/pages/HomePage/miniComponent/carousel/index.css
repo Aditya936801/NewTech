@@ -16,8 +16,9 @@
   }
   .courses-container img {
     border-radius: 50%;
-    height: 50%;
-    width: 50%;
+    
+    height: 230px;
+    width: 230px;
   }
 
   .courses-content-wrapper{
@@ -41,27 +42,8 @@
   }  
 
 
-  @media screen and (max-width: 1100px) {
-    .swiper {
-      height: 450px;
-    }
-}
+ 
 
-@media screen and (max-width: 650px) {
-  .swiper {
-    height: 400px;
-  }
-}
-@media screen and (max-width: 580px) {
-  .swiper {
-    height: 500px;
-  }
-}
-@media screen and (max-width: 400px) {
-  .swiper {
-    height: 400px;
-  }
-}
  
 
   

@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
 import { Toolbar } from "@mui/material";
 import { Button } from "@mui/material";
 import "./index.css";
@@ -8,6 +7,7 @@ import {Link} from "@mui/material";
 import Tables from "./miniComponent/Tables";
 
 const HomePage = () => {
+  
   return (
     <div>
       <Toolbar/>

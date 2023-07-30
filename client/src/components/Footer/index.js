@@ -42,8 +42,8 @@ const Basicfooter = () => {
           width="100%"
           height="300"
           loading="lazy"
-          allowfullscreen=""
-          referrerpolicy="no-referrer-when-downgrade"
+          allowFullScreen=""
+          referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
     </div>

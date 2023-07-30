@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -11,45 +11,57 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { styled } from "@mui/material";
+import { useNavigate, NavLink } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux"
+import { setLogut } from "../../state";
 import "./index.css";
+import { Button } from "@mui/material";
 
 const drawerWidth = 240;
+const navUser = [
+  {
+    name:"HOME",
+    link:"/",
+  },
+  {
+    name:"REGISTRATION",
+    link:"/registration",
+  },
+  {
+    name:"CERTIFICATE",
+    link:"/certificate",
+  },
+];
+const navAdmin = [
+  {
+    name:"DASHBOARD",
+    link:"/admin/dashboard",
+  },
+  {
+    name:"STUDENT",
+    link:"/admin/student",
+  },
+  {
+    name:"CERTIFICATE",
+    link:"/admin/certificate",
+  },
+]
 
-const Navbar = () => {
-  const navItems = ["home", "registration", "certificate", "about", "contact"];
+const Navbar = ({admin=false}) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const master = useSelector(state=>state.admin)
+  const nav = admin?master?.isMaster?navAdmin:navAdmin.slice(1,3):navUser
   const navigate = useNavigate();
-  const [alignment, setAlignment] = useState("home");
-  // const StyleToggleButton = styled(ToggleButton)(({ theme }) => ({
-  //   border: "none",
-  //   borderRadius:0,
-  //   backgroundColor: theme.palette.primary.main,
-  //   color: "#fff",
-  //   margin: "0 8px",
-  //   "&:hover": {
-  //     backgroundColor: "#fff",
-  //     color: theme.palette.primary.main
-  //   },
-  //   "&.Mui-selected": {
-  //     backgroundColor: "#fff",
-  //     color: theme.palette.primary.main,
-  //     "&:hover": {
-  //       backgroundColor: "#fff",
-  //       color: theme.palette.primary.main
-  //     },
-  //   }
-  // }));
-
- 
-
+  const dispatch = useDispatch()
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const handleLogout = ()=>{
+    dispatch(
+      setLogut()
+    )
+
+  }
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -58,13 +70,21 @@ const Navbar = () => {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {nav.map((item,index) => (
+          <ListItem key={index} disablePadding onClick={()=>navigate(item.link)} >
             <ListItemButton>
-              <ListItemText primary={item} />
+              <ListItemText primary={item.name}  />
             </ListItemButton>
           </ListItem>
         ))}
+        {
+          master?<ListItem disablePadding  onClick={handleLogout} >
+          <ListItemButton>
+            <ListItemText primary="LOG OUT"  />
+          </ListItemButton>
+        </ListItem>:<></>
+        }
+        
       </List>
     </Box>
   );
@@ -79,29 +99,24 @@ const Navbar = () => {
           <IconButton
             color="inherit"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { xs: "block", sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
-          <div className="nav-links">
-            {navItems?.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    setAlignment(item)
-                    navigate(`/${item}`)
-                  }}
-                  className={
-                    item === alignment
-                      ? "nav-link-text-selected"
-                      : "nav-link-text"
-                  }
-                >
-                  {item}
-                </div>
-              );
-            })}
+          <div className={master?"nav-links nav-links-admin ":"nav-links"}>
+          {nav.map((item,index) => (
+            <NavLink className="nav-link-text"  to={item.link}>
+              {item.name}
+            </NavLink>
+          ))}
+          {
+            master? <Button variant="contained" color="error" onClick={handleLogout}>
+            logout
+            </Button>:<></>
+          }
+         
+          
+            
           </div>
         </Toolbar>
       </AppBar>

@@ -1,13 +1,15 @@
 .nav-links {
     display: flex;
     align-items: center;
-    max-width: 500px;
+    max-width: 350px;
     width: 100%;
     text-transform: uppercase;
     justify-content: space-between;
 }
 
 .nav-link-text {
+    text-decoration: none;
+    color: white;
     &:hover {
         background-color: white;
         border-radius: 4px;
@@ -17,13 +19,32 @@
     }
 }
 
-.nav-link-text-selected {
-
+.nav-link-text.active {
+    text-decoration: none;
     background-color: white;
     border-radius: 4px;
     padding: 2px 7px;
     color: #1976d2;
     cursor: none;
-
-
 }
+
+.nav-links-admin {
+    max-width: 500px;
+    
+}
+
+@media only screen and (max-width: 700px) {
+    .nav-links-admin {
+        max-width: 420px;
+        
+    }
+  
+
+  }
+@media only screen and (max-width: 600px) {
+    .nav-links{
+        display: none;
+    }
+  
+
+  }
