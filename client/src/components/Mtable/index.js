@@ -2,30 +2,27 @@ import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import { tableIcons, columns } from "./utility";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setSnackbar } from "../../state";
+import { setSnackbar } from "../../store/global/globalReducer";
+import { adminCreate,adminGet } from "../../api/admin/adminUser";
 
 
 const Mtable = () => {
   const defaultTheme = createTheme();
   const [data, setData] = useState([]);
-  const baseUrl = "http://localhost:3001";
   const dispatch = useDispatch();
 
-  const getAdmin = async () => {
+  const getAdmin = async() => {
     try {
-      const response = await axios.get(baseUrl + "/admin/getAdmin");
-
+      const response = await adminGet()
       setData([...data, ...response?.data]);
     } catch (err) {
      
-
       dispatch(
         setSnackbar({
           snackbar: {
             open: true,
-            message: err.response.status===404?"Something Went Wrong":err.response.data.message,
+            message: err?.response?.status===404?"Something Went Wrong":err?.response?.data?.message,
             severity: "error",
           },
         })
@@ -35,9 +32,7 @@ const Mtable = () => {
 
   const createAdmin = async(newRow)=>{
     try {
-      const response = await axios.post(baseUrl + "/admin/createAdmin",
-        newRow
-      );
+      const response = await adminCreate(newRow)
     } catch (err) {
       console.log(err);
 
@@ -59,15 +54,15 @@ const Mtable = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box p="15px">
+      <Box >
         <MaterialTable
           title="Student Details"
           icons={tableIcons}
           columns={columns}
           data={data}
           options={{
-            pageSizeOptions: [10, 15, 20],
-            pageSize: 10,
+            pageSizeOptions: [5,10, 15, 20],
+            pageSize: 5,
             exportButton: true,
             exportAllData: true,
             actionsColumnIndex:-1

@@ -1,0 +1,8 @@
+.search-bar{
+    margin:20px 0px
+}
+
+.search-bar .Mui-focused .MuiSvgIcon-root{
+    color: #1976d2;
+
+}

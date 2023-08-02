@@ -1,17 +1,17 @@
 import React from "react";
-import { Toolbar } from "@mui/material";
+
 import { Button } from "@mui/material";
-import "./index.css";
+import "./homePage.css";
 import Carousel from "./miniComponent/carousel";
 import {Link} from "@mui/material";
 import Tables from "./miniComponent/Tables";
-
+import Wrapper from "../../components/Wrapper"
 const HomePage = () => {
   
   return (
-    <div>
-      <Toolbar/>
-      <div className="home-background">
+    <Wrapper>
+    
+    <div className="home-background">
         <div className="home-page-content">
           <div>Leading and Best Computer Training Institutes</div>
           <Link href="#courses-offered">
@@ -32,8 +32,9 @@ const HomePage = () => {
       </div>
       <Tables/>
       </div>
-    </div>
-  );
-};
-
+      </Wrapper>
+    
+    );
+  };
+  
 export default HomePage;

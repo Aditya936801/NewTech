@@ -1,15 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    admin:null,
-    token:null,
-    snackbar:{
-        open:false,
-        message:"",
-        severity:"",
-    },
-    
-    
+    admin: {},
+    token: '',
 }
 
 export const authSlice = createSlice({
@@ -21,11 +14,8 @@ export const authSlice = createSlice({
             state.token = action.payload.token
         },
         setLogut:(state)=>{
-            state.admin = null
-            state.token = null
-        },
-        setSnackbar:(state,action)=>{
-            state.snackbar={...state.snackbar,...action.payload.snackbar}
+            state.admin = {}
+            state.token = ""
         },
       
     }
@@ -33,5 +23,5 @@ export const authSlice = createSlice({
 })
 
 
-export const {setLogin,setLogut,setSnackbar} = authSlice.actions
+export const {setLogin,setLogout} = authSlice.actions
 export default authSlice.reducer

@@ -1,65 +1,55 @@
 import "./app.css";
 import React, { Suspense } from "react";
-import { BrowserRouter,  Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ContactUs from "./pages/ContactUs";
-import { useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./navigation/ProtectedRoute";
 import { CssBaseline } from "@mui/material";
-import Wrapper from "./components/Wrapper";
+import CustomSnackbar from "./components/CustomSnackbar";
+import { ADMIN_ROUTE } from "./navigation/routes/adminRoutes";
+import { LANDING_ROUTE } from "./navigation/routes/landingRoutes";
+import { LOGIN_ROUTE } from "./navigation/routes/loginRoutes";
+import HomePage from "./pages/HomePage"
 const LoginPage = React.lazy(() => import("./pages/Admin/Login"));
 const DashBoard = React.lazy(() => import("./pages/Admin/DashBoard"));
 
 const App = () => {
-  const isAuth = Boolean(useSelector(state=>state.token))
-  const admin = useSelector(state=>state.admin)
   return (
     <div className="App">
       <BrowserRouter>
         <CssBaseline />
         <Routes>
-          <Route
-          
-            path="/"
-            element={
-              isAuth?admin?.isMaster?<Navigate to="/admin/dashboard"/>:<></>:
+        <Route
+        path={LANDING_ROUTE.home}
+        element={
+          <Suspense fallback={<div>Loading</div>}>
+        <ProtectedRoute>
 
-              <Suspense fallback={<div>Loading</div>}>
-                <Wrapper>
-                  <HomePage />
-                </Wrapper>
-              </Suspense>
-            }
-          />
+          <HomePage />
+        </ProtectedRoute>
+
+          </Suspense>
+        }
+        />
+        <Route
+        path={LOGIN_ROUTE.login}
+        element={
+          <Suspense fallback={<div>Loading</div>}>
+          <ProtectedRoute>
+          <LoginPage />
+          </ProtectedRoute>
+          </Suspense>
+        }
+        />
           <Route
-            path="/contact"
+            path={ADMIN_ROUTE.dashboard}
             element={
               <Suspense fallback={<div>Loading</div>}>
-                <Wrapper>
-                  <ContactUs />
-                </Wrapper>
+                <DashBoard />
               </Suspense>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              isAuth?admin?.isMaster?<Navigate to="/admin/dashboard"/>:<></>:
-              <Suspense fallback={<div>Loading</div>}>
-                 <LoginPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/dashboard"
-            element={
-              isAuth?
-              <Suspense fallback={<div>Loading</div>}>
-                 <DashBoard />
-              </Suspense>:<Navigate to="/"/>
             }
           />
         </Routes>
       </BrowserRouter>
+      <CustomSnackbar />
     </div>
   );
 };

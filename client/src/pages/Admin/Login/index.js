@@ -1,65 +1,23 @@
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { Formik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { setLogin, setSnackbar } from "../../../state";
-import axios from "axios";
-import * as yup from "yup";
-import "./index.css";
-import CustomSnackbar from "../../../components/CustomSnackbar";
+import { useDispatch } from "react-redux";
+import {  setSnackbar } from "../../../store/global/globalReducer";
+import {  setLogin } from "../../../store/auth/authReducer";
+import "./login.css";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useNavigate } from "react-router-dom";
+import { LANDING_ROUTE } from "../../../navigation/routes/landingRoutes";
+import {login} from "../../../api/auth/auth"
+import Form from "./Form"
 
 const LoginPage = () => {
-  const baseUrl = "http://localhost:3001";
   const [isOtpSend, setIsOtpSend] = useState(false);
-  const [isloading, setIsLoading] = useState(false);
   const [tryleft, setTryleft] = useState(3);
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.token);
-  const loginSchema = yup.object().shape({
-    email: yup.string().email("invalid email").required("required"),
-  });
-  const initialValues = {
-    email: "",
-  };
 
-  const sendOtp = async (values, onSubmitProps) => {
-    try {
-      setEmail(values.email);
-      const response = await axios.post(baseUrl + "/admin/sendOtp", values);
-      dispatch(
-        setSnackbar({
-          snackbar: {
-            open: true,
-            message: response?.data.message,
-            severity: "success",
-          },
-        })
-      );
-      onSubmitProps.resetForm();
-      setIsOtpSend(true);
-    } catch (err) {
-      setIsLoading(false);
-      dispatch(
-        setSnackbar({
-          snackbar: {
-            open: true,
-            message: err?.response.data.message,
-            severity: "error",
-          },
-        })
-      );
-    }
-  };
-
-  const handleFormSubmit = async (values, onSubmitProps) => {
-    setIsLoading(true);
-    sendOtp(values, onSubmitProps);
-  };
 
   const handleChange = (newValue) => {
     setOtp(newValue);
@@ -71,15 +29,12 @@ const LoginPage = () => {
 
   const handleComplete = async (value) => {
     try {
-      const response = await axios.post(baseUrl + "/admin/login", {
-        email,
-        otp: value,
-      });
+      const response = await login(value,email)
       dispatch(
         setSnackbar({
           snackbar: {
             open: true,
-            message: response?.data.message,
+            message: response?.data?.message,
             severity: "success",
           },
         })
@@ -90,17 +45,14 @@ const LoginPage = () => {
           token: response?.data.token,
         })
       );
-      if (response?.data.admin?.isMaster) {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/admin/student");
-      }
+      navigate(LANDING_ROUTE.home)
     } catch (err) {
+      console.log(err)
       dispatch(
         setSnackbar({
           snackbar: {
             open: true,
-            message: err.response.data.message,
+            message: err?.response?.data?.message,
             severity: "error",
           },
         })
@@ -110,18 +62,27 @@ const LoginPage = () => {
     }
   };
 
-useEffect(()=>{
-  if (window.performance) {
-    if (performance.navigation.type === 1) {
-      navigate("/")
-    } 
+  useEffect(() => {
+    if (window.performance) {
+      if (performance.navigation.type === 1) {
+        navigate(LANDING_ROUTE.home);
+      }
+    }
+  }, []);
+
+
+  if(!isOtpSend)
+  {
+    return(
+      <div className="login-container">
+      <Form setIsOtpSend={setIsOtpSend} setEmail={setEmail}   />
+      </div>
+    )
   }
-},[])
 
   return (
     <div className="login-container">
-      {isOtpSend ? (
-        tryleft > 0 ? (
+      { tryleft > 0 ? (
           <div className="login-box">
             <Typography
               textAlign="center"
@@ -150,58 +111,14 @@ useEffect(()=>{
               variant="h5"
               sx={{ color: "GrayText", cursor: "pointer" }}
               onClick={() => {
-                navigate("/");
+                navigate(LANDING_ROUTE.home);
               }}
             >
               Please Try Again Later
             </Typography>
           </div>
         )
-      ) : (
-        <Formik
-          onSubmit={handleFormSubmit}
-          initialValues={initialValues}
-          validationSchema={loginSchema}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-          }) => (
-            <form onSubmit={handleSubmit} className="login-box">
-              <Typography
-                textAlign="center"
-                sx={{ fontSize: { xs: "30px", sm: "40px" }, mb: 3 }}
-                color="primary"
-              >
-                ADMIN LOGIN
-              </Typography>
-              <TextField
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={Boolean(touched.email) && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-                required
-                label="Email Address"
-              />
-              <Button
-                disabled={isloading}
-                type="submit"
-                variant="contained"
-                sx={{ mt: 4 }}
-              >
-                login
-              </Button>
-            </form>
-          )}
-        </Formik>
-      )}
-      <CustomSnackbar />
+      }
     </div>
   );
 };

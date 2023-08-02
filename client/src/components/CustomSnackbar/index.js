@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { setSnackbar } from "../state";
+import { setSnackbar } from "../../store/global/globalReducer";
 import { useSelector,useDispatch } from 'react-redux';
+import {getSnackbar} from "../../store/global/globalSelectors"
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -11,7 +12,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function CustomSnackbar() {
-  const snackbar = useSelector((state)=>state.snackbar)
+  const snackbar = useSelector(getSnackbar)
   const dispatch = useDispatch()
 
   const handleClose = (event, reason) => {
@@ -22,7 +23,9 @@ export default function CustomSnackbar() {
     dispatch(
       setSnackbar({
         snackbar:{
-          open:false
+          open:false,
+          message:"",
+          severity:""
         }
       }))
   };

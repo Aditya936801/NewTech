@@ -17,7 +17,7 @@ import ViewColumnIcon from "@mui/icons-material/ViewColumn";
 
 
 export const tableIcons = {
-  Add: forwardRef((props, ref) => <AddBoxIcon fontSize="large" color="success" {...props} ref={ref} />),
+  Add: forwardRef((props, ref) => <AddBoxIcon  color="success" {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <CheckIcon {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <ClearIcon {...props} ref={ref} />),
   Delete: forwardRef((props, ref) => <DeleteOutlineIcon {...props} ref={ref} />),
@@ -42,10 +42,18 @@ export const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumnIcon {...props} ref={ref} />)
 };
 
-
+const validateName = (name)=>{
+  if(name===""||name===undefined)
+  {
+    return { isValid: false, helperText: 'Surname must be longer than 3 Chars' }
+  }
+  else{
+    return true
+  }
+}
 
 export const columns = [
-  { title: "NAME", field: "userName" },
-  { title: "EMAIL", field: "email" },
-  { title: "AUTHORITY", field: "isMaster" ,lookup:{false:"Admin",true:"Master Admin"},sorting:false }
+  { title: "NAME", field: "userName",validate: rowData => validateName(rowData.userName)} ,
+  { title: "EMAIL", field: "email", validate: rowData => rowData.userName === undefined ? { isValid: false, helperText: 'Surname must be longer than 3 Chars' } : true, },
+  { title: "AUTHORITY", field: "isMaster" ,lookup:{false:"Admin",true:"Master Admin"},sorting:false,validate: rowData => rowData.userName === undefined ? { isValid: false, helperText: 'Surname must be longer than 3 Chars' } : true, }
 ];

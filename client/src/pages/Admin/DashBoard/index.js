@@ -1,18 +1,30 @@
 import React from "react";
-import "./index.css";
+import "./dashBoard.css";
 import Navbar from "../../../components/Navbar";
 import { Toolbar } from "@mui/material";
 import Mtable from "../../../components/Mtable";
-import CustomSnackbar from "../../../components/CustomSnackbar"
+import { Navigate } from "react-router-dom";
+import { getToken } from "../../../store/auth/authSelector";
+import { useSelector } from "react-redux";
+import SearchBar from "../../../components/SearchBar";
+import DataTable from "../../../components/DataTable";
 
 
 const DashBoard = () => {
+  const isAuth = useSelector(getToken);
+
   return (
     <div>
-      <Navbar admin={true} />
-      <Toolbar />
-      <Mtable />
-      <CustomSnackbar/>
+      {isAuth === "" ? (
+        <Navigate to="/" />
+      ) : (
+        <div className="dashboard-wrapper" >
+          <Navbar  />
+          <Toolbar />
+          <SearchBar />
+          <DataTable adminTable={true}/>
+        </div>
+      )}
     </div>
   );
 };
