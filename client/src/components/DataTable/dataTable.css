@@ -3,6 +3,7 @@
     width: 100%;
 }
 
+
 .table-container{
     max-height: 440px;
 }
@@ -14,4 +15,9 @@
 
 .table-data{
     color: grey;
+}
+.table-button{
+    margin-top: 20px  !important;
+    
+    
 }
