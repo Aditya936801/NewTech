@@ -24,13 +24,13 @@ export const createAdmin = async (req, res) => {
 };
 
 export const updateAdmin = async (req, res) => {
-  const { _id, userName, email, isMaster } = req.body;
+  const { _id,userName, email, isMaster } = req.body;
   try {
     const preAdmin = await Admin.findOne(
       {
         $and: [
           {
-            userName:userName,
+            _id:{ $ne: _id },
           },
           {
             email: email,
@@ -41,7 +41,7 @@ export const updateAdmin = async (req, res) => {
       }
     );
     if (preAdmin) {
-      res.status(400).json({ message: preAdmin });
+      res.status(400).json({ message: "Email Exist" });
     } else {
       const update = {
         userName,
@@ -51,6 +51,7 @@ export const updateAdmin = async (req, res) => {
       const updated = await Admin.findOneAndUpdate({_id:_id}, update, {
         new: true,
       });
+      await updated.save()
 
       
       res.status(200).json(updated);
@@ -70,3 +71,18 @@ export const getAdmin = async (req, res) => {
     res.status(400).json({ message: "Something went Wrong" });
   }
 };
+
+export const deleteAdmin = async (req, res) => {
+  const { _id } = req.body;
+  try {
+      const deleted = await Admin.findOneAndDelete(
+        { _id:_id }
+     )
+      
+      res.status(201).json(deleted);
+    }
+  catch (error) {
+    res.status(400).json({ message: "Cannot be Deleted" });
+  }
+};
+

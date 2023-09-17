@@ -3,8 +3,8 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import { setSnackbar } from "../../store/global/globalReducer";
-import { adminGet } from "../../api/admin/adminUser";
-import { useState, useEffect, useRef } from "react";
+import { get_admin } from "../../api/admin/adminUser";
+import { useState, useEffect, useRef,useMemo } from "react";
 import { useDispatch } from "react-redux";
 import TableHeader from "./miniComponent/TableHeader";
 import TableDataContainer from "./miniComponent/TableDataContainer";
@@ -12,6 +12,8 @@ import { Button } from "@mui/material";
 import "./dataTable.css";
 import AddModal from "../../modals/AddModal";
 import EditModal from "../../modals/EditModal";
+import DeleteDialog from "../../modals/DeleteDialog";
+import SearchBar from "../SearchBar";
 
 const columns = [
   { id: "userName", label: "NAME", align: "left" },
@@ -42,12 +44,29 @@ export default function DataTable(props) {
   const [valueToOrderBy, setvalueToOrderBy] = useState("name");
   const [orderDirection, setOrderDirection] = useState("asc");
   const [data, setData] = useState([]);
+  const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [rowData, setRowData] = useState(null);
   const [modalType, setModalType] = useState("");
   const dispatch = useDispatch();
   const checkRun = useRef(true);
-  
+  const keys = ["userName", "email"];
+  const search = (q) => {
+    if(q==="")
+    {
+      return data
+    }
+    const query = q.toLowerCase();
+    const newData = data?.filter((el) =>
+      keys.some((key) => el[key].toLowerCase().includes(query))
+    );
+    return newData;
+  };
+  const searchData = useMemo(() => search(query), [query,data]);
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+   
+  };
 
   const handleSorting = (a, b, isAscending) => {
     if (isAscending) {
@@ -69,8 +88,7 @@ export default function DataTable(props) {
 
   const handleClose = () => {
     setOpen(false);
-    if(rowData !== null)
-    {
+    if (rowData !== null) {
       setRowData(null);
     }
   };
@@ -96,7 +114,7 @@ export default function DataTable(props) {
 
   const getAdmin = async () => {
     try {
-      const response = await adminGet();
+      const response = await get_admin();
       setData(response?.data);
     } catch (err) {
       dispatch(
@@ -123,6 +141,7 @@ export default function DataTable(props) {
 
   return (
     <div>
+      <SearchBar handleSearch={handleSearch} query={query} />
       <Paper className="table-wrapper">
         <TableContainer className="table-container">
           <Table stickyHeader aria-label="sticky table">
@@ -134,19 +153,19 @@ export default function DataTable(props) {
             />
 
             <TableDataContainer
-              data={data}
+              data={searchData}
               page={page}
               rowsPerPage={rowsPerPage}
               columns={columns}
               handleOpen={handleOpen}
-              
+              searchData={searchData}
             />
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={data.length}
+          count={searchData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -162,10 +181,30 @@ export default function DataTable(props) {
         add
       </Button>
       {modalType === "add" && (
-        <AddModal open={open} handleClose={handleClose} modalType={modalType} data={data} setData={setData}  />
+        <AddModal
+          open={open}
+          handleClose={handleClose}
+          modalType={modalType}
+          getAdmin={getAdmin}
+        />
       )}
       {modalType === "edit" && (
-        <EditModal open={open} handleClose={handleClose} modalType={modalType} rowData={rowData} data={data} setData={setData} />
+        <EditModal
+          open={open}
+          handleClose={handleClose}
+          modalType={modalType}
+          rowData={rowData}
+          getAdmin={getAdmin}
+        />
+      )}
+      {modalType === "delete" && (
+        <DeleteDialog
+          open={open}
+          handleClose={handleClose}
+          modalType={modalType}
+          rowData={rowData}
+          getAdmin={getAdmin}
+        />
       )}
     </div>
   );

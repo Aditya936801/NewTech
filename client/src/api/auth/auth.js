@@ -6,7 +6,7 @@ const endpoints ={
 }
 
 export const sendOTP = async(values)=>{
-      const response = await axios.post(BASE_URL + endpoints.sendOtp, values);
+      const response = await axios.post(BASE_URL + endpoints.sendOtp, values,{headers:{Authorization:"fg"}});
     return response
 
 }

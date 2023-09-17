@@ -13,7 +13,7 @@ export const authSlice = createSlice({
             state.admin = action.payload.admin
             state.token = action.payload.token
         },
-        setLogut:(state)=>{
+        setLogout:(state)=>{
             state.admin = {}
             state.token = ""
         },

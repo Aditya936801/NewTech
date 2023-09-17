@@ -3,7 +3,7 @@ import "./basicModal.css";
 import AdminDataForm from "../../modals/miniComponent/Form/AdminDataForm";
 
 const BasicModal = (props) => {
-    const { open, handleClose, setData, modalType, data,initialValues } = props;
+    const { open, handleClose, getAdmin, modalType, initialValues,rowData } = props;
   
   return (
     
@@ -25,9 +25,9 @@ const BasicModal = (props) => {
           <AdminDataForm
             handleClose={handleClose}
             modalType={modalType}
-            data={data}
-            setData={setData}
+           getAdmin={getAdmin}
             initialValues={initialValues}
+            rowData={rowData}
             
           />
         </Box>

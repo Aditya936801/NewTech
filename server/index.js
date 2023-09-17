@@ -5,6 +5,7 @@ import helmet from "helmet"
 import mongoose, { Mongoose } from "mongoose"
 import morgan  from "morgan"
 import adminRouter from "./routes/Admin.js"
+import studentRouter from "./routes/Student.js"
 
 
 
@@ -24,6 +25,7 @@ app.use(cors())
 
 /* Routes */
 app.use("/admin",adminRouter)
+app.use("/student",studentRouter)
 
 
 

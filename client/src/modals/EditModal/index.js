@@ -2,7 +2,7 @@ import BasicModal from "../../components/BasicModal";
 import "../modal.css";
 
 const EditModal = (props) => {
-  const { open, handleClose, modalType, rowData,data,setData } = props;
+  const { open, handleClose, modalType, rowData,getAdmin } = props;
   const initialValues = {
     userName: rowData?.userName,
     email: rowData?.email,
@@ -15,8 +15,9 @@ const EditModal = (props) => {
         handleClose={handleClose}
         modalType={modalType}
         initialValues={initialValues}
-        data={data}
-        setData={setData}
+        getAdmin={getAdmin}
+        rowData={rowData}
+        
       />
     </div>
   );

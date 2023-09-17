@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import {adminCreate} from "../../../../api/admin/adminUser"
+import { create_admin, update_admin } from "../../../../api/admin/adminUser";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../../../store/global/globalReducer";
 import {
@@ -12,38 +12,42 @@ import {
   FormControl,
 } from "@mui/material";
 import * as yup from "yup";
-import "../form.css"
+import "../form.css";
 
 const AdminDataForm = (props) => {
-  const { initialValues,modalType,setData,data,handleClose,lastRow } = props;
-  const dispatch =useDispatch()
+  const { initialValues, modalType, getAdmin, handleClose, rowData } = props;
+  const dispatch = useDispatch();
   const loginSchema = yup.object().shape({
     userName: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
   });
-  const createAdmin = async(newRow)=>{
+
+  const operationAdmin = async (row) => {
     try {
-      const response = await adminCreate(newRow)
-      setData([response?.data,...data])
-      handleClose()
-      
-      
+      const response =
+       modalType === "edit" ? await update_admin(row) : await create_admin(row);
+      getAdmin();
+      handleClose();
     } catch (err) {
+      console.log(err)
       dispatch(
         setSnackbar({
           snackbar: {
             open: true,
-            message: err.response.status===404?"Something Went Wrong":err.response.data.message,
+            message:
+              err?.response? err?.response?.data?.message:"Something Went Wrong",
             severity: "error",
           },
         })
       );
     }
-  
-  }
+  };
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log(values);
-    createAdmin(values)
+    if (modalType === "add") {
+      operationAdmin(values);
+    } else {
+      operationAdmin({ ...values, _id: rowData?._id });
+    }
     onSubmitProps.resetForm();
   };
   return (
@@ -60,7 +64,7 @@ const AdminDataForm = (props) => {
         handleChange,
         handleSubmit,
       }) => (
-        <form onSubmit={handleSubmit} className="form-container" >
+        <form onSubmit={handleSubmit} className="form-container">
           <TextField
             onBlur={handleBlur}
             onChange={handleChange}
@@ -97,7 +101,7 @@ const AdminDataForm = (props) => {
           </FormControl>
 
           <Button type="submit" variant="contained">
-            {modalType==="edit"?"update":"save"}
+            {modalType === "edit" ? "update" : "save"}
           </Button>
         </form>
       )}
@@ -106,6 +110,3 @@ const AdminDataForm = (props) => {
 };
 
 export default AdminDataForm;
-
-
-

@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const TableDataContainer = (props) => {
-  const { data, page, rowsPerPage, columns,handleOpen } = props;
+  const { data, page, rowsPerPage, columns,handleOpen} = props;
   return (
     <TableBody>
       {data
@@ -53,7 +53,7 @@ const ActionIcons=(props)=>{
     <IconButton className="table-icon" color="warning" onClick={handleOpen("edit",rowData)} >
       <EditIcon color="warning" />
       </IconButton>
-    <IconButton className="table-icon" color="error" >
+    <IconButton className="table-icon" color="error" onClick={handleOpen("delete",rowData)} >
       <DeleteIcon color="error" />
       </IconButton>
     </div>

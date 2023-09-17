@@ -7,12 +7,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import {  NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setLogout } from "../../store/auth/authReducer";
 import "./navbar.css";
 import { Button } from "@mui/material";
 import { checkForAdmin } from "./utility";
 import { getAdminData,getToken } from "../../store/auth/authSelector";
 import MuiDrawer from "./miniComponent/MuiDrawer";
+import { setLogout } from "../../store/auth/authReducer";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);

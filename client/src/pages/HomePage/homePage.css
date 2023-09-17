@@ -7,6 +7,7 @@
     padding-left: 20px;
     display: flex;
     align-items: center;
+    filter: blur(8px);
 }
 
 .home-page-content {
@@ -14,6 +15,7 @@
     margin-left: 50px;
     color: black;
     font-size: 60px;
+
 
 }
 

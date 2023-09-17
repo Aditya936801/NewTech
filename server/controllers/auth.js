@@ -3,7 +3,7 @@ import userOtp from "../models/userOtp.js";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -60,34 +60,37 @@ export const sendOtp = async (req, res) => {
       res.status(400).json({ message: "Invalid User" });
     }
   } catch (error) {
-    res.status(400).json({message:"Invalid Details"});
+    res.status(400).json({ message: "Invalid Details" });
   }
 };
 
 export const login = async (req, res) => {
   const { email, otp } = req.body;
-  try{
-
+  try {
     const admin = await Admin.findOne({ email: email });
     const verifyEmail = await userOtp.findOne({ email: email });
     if (verifyEmail) {
       if (verifyEmail.otp === otp) {
-        const token = jwt.sign({id:admin._id},process.env.JWT_SECRET,{expiresIn:"1d"})
-        res.status(200).json({ token,admin,message: "Login Successful" });
-       
+        if (admin?.isMaster) {
+          const token = jwt.sign(
+            { id: admin._id },
+            process.env.MASTER_JWT_SECRET,
+            { expiresIn: "1d" }
+          );
+          res.status(200).json({ token, admin, message: "Login Successful" });
+        } else {
+          const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
+            expiresIn: "1d",
+          });
+          res.status(200).json({ token, admin, message: "Login Successful" });
+        }
       } else {
         res.status(400).json({ message: "Invalid OTP" });
       }
-    } 
-    else {
+    } else {
       res.status(400).json({ message: "Invalid User" });
-      
     }
-  }
-  catch(err)
-  {
-    res.status(400).json({message:"Login failed"});
-
+  } catch (err) {
+    res.status(400).json({ message: "Login failed" });
   }
 };
-
