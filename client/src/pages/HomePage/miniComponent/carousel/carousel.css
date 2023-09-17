@@ -4,6 +4,9 @@
     padding: 10px;
     min-height: 100%;
   }
+  .mySwiper [class^="swiper-button-"]{
+    color: #d2164d;
+ }
   
   .courses-container{
     display: flex;
@@ -14,6 +17,7 @@
     
 
   }
+
   .courses-container img {
     border-radius: 50%;
     

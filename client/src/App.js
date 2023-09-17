@@ -5,6 +5,7 @@ import UnprotectedRoute from "./navigation/UnprotectedRoute";
 import ProtectedRoute from "./navigation/ProtectedRoute";
 import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
 import CustomSnackbar from "./components/CustomSnackbar";
+import Loader from "./components/Loader"
 import { ADMIN_ROUTE } from "./navigation/routes/adminRoutes";
 import { LANDING_ROUTE } from "./navigation/routes/landingRoutes";
 import { LOGIN_ROUTE } from "./navigation/routes/loginRoutes";
@@ -29,17 +30,17 @@ const App = () => {
             <Route
               path={LANDING_ROUTE.home}
               element={
-                <Suspense fallback={<div>Loading</div>}>
+                
                   <UnprotectedRoute>
                     <HomePage />
                   </UnprotectedRoute>
-                </Suspense>
+              
               }
             />
             <Route
               path={LOGIN_ROUTE.login}
               element={
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<Loader/>}>
                   <UnprotectedRoute>
                     <LoginPage />
                   </UnprotectedRoute>

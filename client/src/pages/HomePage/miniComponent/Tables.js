@@ -30,7 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Tables=() =>{
   return (
-    <TableContainer component={Paper} sx={{ mb:4,maxWidth: 1000  }}>
+    <TableContainer component={Paper} sx={{ mb:4 }}>
       <Table  aria-label="customized table">
         <TableHead>
           <TableRow>
