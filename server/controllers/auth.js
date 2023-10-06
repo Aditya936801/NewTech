@@ -51,16 +51,16 @@ export const sendOtp = async (req, res) => {
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          res.status(400).json({ message: "Message Not Send" });
+          res.status(400).json({ message: "OTP Not Send" });
         } else {
-          res.status(200).json({ message: "Message  Send" });
+          res.status(200).json({ message: "OTP  Send" });
         }
       });
     } else {
       res.status(400).json({ message: "Invalid User" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid Details" });
+    res.status(400).json({ message: "Invalid Details",error:error.message });
   }
 };
 

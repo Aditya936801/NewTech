@@ -22,7 +22,7 @@ const App = () => {
     },
   });
   return (
-    <div className="App">
+    <div className="app">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <CssBaseline />
@@ -50,7 +50,7 @@ const App = () => {
             <Route
               path={ADMIN_ROUTE.dashboard}
               element={
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<Loader/>}>
                   <ProtectedRoute>
                     <DashBoard />
                   </ProtectedRoute>

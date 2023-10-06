@@ -1,17 +1,12 @@
 import React from "react";
-import BasicModal from "../../components/BasicModal";
+import BasicModal from "../../components/DataTable/miniComponent/BasicModal";
 import "../modal.css";
 
 const AddModal = (props) => {
   const { open, handleClose,  modalType, getAdmin } = props;
-  const initialValues = {
-    userName: "",
-    email: "",
-    isMaster: false,
-  };
   return (
     <div>
-      <BasicModal open={open} handleClose={handleClose} getAdmin={getAdmin} modalType={modalType} initialValues={initialValues} />
+      <BasicModal open={open} handleClose={handleClose} getAdmin={getAdmin} modalType={modalType}  />
     </div>
   );
 };

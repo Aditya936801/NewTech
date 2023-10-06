@@ -16,7 +16,7 @@ export const createAdmin = async (req, res) => {
       });
 
       const savedAdmin = await adminRegister.save();
-      res.status(201).json(savedAdmin);
+      res.status(201).json({...savedAdmin,message:"Admin Created"})
     }
   } catch (error) {
     res.status(400).json({ message: "Admin cannot be created" });
@@ -54,7 +54,7 @@ export const updateAdmin = async (req, res) => {
       await updated.save()
 
       
-      res.status(200).json(updated);
+      res.status(200).json({...updated,message:"Admin Updated"});
     
     }
   } catch (error) {

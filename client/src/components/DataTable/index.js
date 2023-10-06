@@ -3,8 +3,9 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import { setSnackbar } from "../../store/global/globalReducer";
+import { setLogin } from "../../store/auth/authReducer";
 import { get_admin } from "../../api/admin/adminUser";
-import { useState, useEffect, useRef,useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import TableHeader from "./miniComponent/TableHeader";
 import TableDataContainer from "./miniComponent/TableDataContainer";
@@ -49,16 +50,16 @@ export default function DataTable(props) {
   const [rowData, setRowData] = useState(null);
   const [modalType, setModalType] = useState("");
   const dispatch = useDispatch();
-  const checkRun = useRef(true);
+  
   const keys = ["userName", "email"];
   const search = (q) => {
     if(q==="")
     {
       return data
     }
-    const query = q.toLowerCase();
+    const query = q?.toLowerCase();
     const newData = data?.filter((el) =>
-      keys.some((key) => el[key].toLowerCase().includes(query))
+      keys.some((key) => el[key]?.toLowerCase().includes(query))
     );
     return newData;
   };
@@ -118,6 +119,12 @@ export default function DataTable(props) {
       setData(response?.data);
     } catch (err) {
       dispatch(
+        setLogin({
+          admin: "",
+          token: "",
+        })
+      );
+      dispatch(
         setSnackbar({
           snackbar: {
             open: true,
@@ -132,11 +139,9 @@ export default function DataTable(props) {
     }
   };
   useEffect(() => {
-    if (checkRun.current) {
-      checkRun.current = false;
-    } else {
+   
       getAdmin();
-    }
+    
   }, []);
 
   return (

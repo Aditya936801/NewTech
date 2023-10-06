@@ -13,6 +13,7 @@ import {getAdminData,getToken} from "../../../../store/auth/authSelector"
 import {useSelector} from "react-redux"
 import { checkForAdmin } from "../../utility";
 import { useNavigate } from "react-router-dom";
+import "../../navbar.css"
 
 
 
@@ -40,7 +41,7 @@ const MuiDrawer = ({mobileOpen,handleDrawerToggle,handleLogout}) => {
         },
       }}
     >
-      <Box onClick={handleDrawerToggle} textAlign="center">
+      <Box onClick={handleDrawerToggle} className="menu-drawer" textAlign="center">
         <Typography variant="h6" sx={{ my: 2 }}>
           MENU
         </Typography>
@@ -53,7 +54,7 @@ const MuiDrawer = ({mobileOpen,handleDrawerToggle,handleLogout}) => {
               onClick={() => navigate(item.link)}
             >
               <ListItemButton>
-                <ListItemText primary={item.name} />
+                <ListItemText primary={item.name} color="primary" />
               </ListItemButton>
             </ListItem>
           ))}

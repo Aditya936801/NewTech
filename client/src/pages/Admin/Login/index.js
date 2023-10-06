@@ -63,9 +63,12 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (window.performance) {
-      if (performance.navigation.type === 1) {
-        navigate(LANDING_ROUTE.home);
+    if(isOtpSend)
+    {
+      if (window.performance) {
+        if (performance.navigation.type === 1) {
+          navigate(LANDING_ROUTE.home);
+        }
       }
     }
   }, []);
@@ -75,7 +78,7 @@ const LoginPage = () => {
   {
     return(
       <div className="login-container">
-      <Form setIsOtpSend={setIsOtpSend} setEmail={setEmail}   />
+      <Form setIsOtpSend={setIsOtpSend} setEmail={setEmail} email={email}   />
       </div>
     )
   }
