@@ -4,14 +4,12 @@ const AdminSchema = new mongoose.Schema({
   userName: {
     type: String,
     require: true,
-    min: 2,
+    min: 3,
     max: 50,
   },
   email: {
     type: String,
     require: true,
-    min: 2,
-    max: 50,
   },
   isMaster:{
     type:Boolean,

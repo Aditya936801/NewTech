@@ -4,8 +4,7 @@ const OtpSchema = new mongoose.Schema({
   email: {
     type: String,
     require: true,
-    min: 2,
-    max: 50,
+  
   },
   otp:{
     type: String,

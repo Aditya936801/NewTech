@@ -8,13 +8,13 @@ const StudentSchema = new mongoose.Schema({
   userName: {
     type: String,
     require: true,
-    min: 2,
+    min: 3,
     max: 50,
   },
   fatherName: {
     type: String,
     require: true,
-    min: 2,
+    min: 3,
     max: 50,
   },
   dob:{
@@ -28,7 +28,8 @@ const StudentSchema = new mongoose.Schema({
   mobileNumber:{
     type:Number,
     require:true,
-    max:10,
+    min:1000000000,
+    max:9999999999,
   },
   profilePicture:{
     type:String,
