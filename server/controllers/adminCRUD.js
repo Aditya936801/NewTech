@@ -19,7 +19,7 @@ export const createAdmin = async (req, res) => {
       res.status(201).json({...savedAdmin,message:"Admin Created"})
     }
   } catch (error) {
-    res.status(400).json({ message: "Admin cannot be created" });
+    res.status(400).json({ message: "Please try again later",error:error.message });
   }
 };
 
@@ -41,7 +41,7 @@ export const updateAdmin = async (req, res) => {
       }
     );
     if (preAdmin) {
-      res.status(400).json({ message: "Email Exist" });
+      res.status(400).json({ message: "Admin with this email already exist" });
     } else {
       const update = {
         userName,
@@ -54,11 +54,11 @@ export const updateAdmin = async (req, res) => {
       await updated.save()
 
       
-      res.status(200).json({...updated,message:"Admin Updated"});
+      res.status(200).json({...updated,message:"Admin Details Updated"});
     
     }
   } catch (error) {
-    res.status(400).json({ message: "Something went wrong" });
+    res.status(400).json({ message: "Please try again later",error:error.message });
   }
 };
 
@@ -68,7 +68,7 @@ export const getAdmin = async (req, res) => {
 
     res.status(200).json(admin);
   } catch (error) {
-    res.status(400).json({ message: "Something went Wrong" });
+    res.status(400).json({ message: "Something went Wrong",error:error.message });
   }
 };
 
@@ -79,10 +79,10 @@ export const deleteAdmin = async (req, res) => {
         { _id:_id }
      )
       
-      res.status(201).json(deleted);
+      res.status(201).json({message:"Admin Removed"});
     }
   catch (error) {
-    res.status(400).json({ message: "Cannot be Deleted" });
+    res.status(400).json({ message: "Please try again later",error:error.message });
   }
 };
 

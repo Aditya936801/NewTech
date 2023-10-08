@@ -13,6 +13,15 @@ const DeleteDialog=(props)=> {
   const handleDelete = async()=>{
     try {
       const response = await delete_admin(rowData)
+      dispatch(
+        setSnackbar({
+          snackbar: {
+            open: true,
+            message: response?.data?.message,
+            severity: "success",
+          },
+        })
+      );
      getAdmin()
       handleClose()
       
@@ -21,7 +30,7 @@ const DeleteDialog=(props)=> {
         setSnackbar({
           snackbar: {
             open: true,
-            message: err.response.status===404?"Something Went Wrong":err.response.data.message,
+            message: err?.response?.status===404?"Something Went Wrong":err?.response?.data?.message,
             severity: "error",
           },
         })
