@@ -1,3 +1,4 @@
 export const  ADMIN_ROUTE = {
-    dashboard:"/admin/dashboard",
+    adminDashboard:"/admin/adminDashboard",
+    studentDashboard:"/admin/studentDashboard",
 }

@@ -4,42 +4,22 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import { setSnackbar } from "../../store/global/globalReducer";
 import { setLogin } from "../../store/auth/authReducer";
-import { get_admin } from "../../api/admin/adminUser";
+import { get_admins } from "../../api/admin/adminUser";
+import { get_students } from "../../api/admin/student";
 import { useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import TableHeader from "./miniComponent/TableHeader";
 import TableDataContainer from "./miniComponent/TableDataContainer";
 import { Button } from "@mui/material";
 import "./dataTable.css";
+import { adminColumns,studentColumns } from "./utils";
 import AddModal from "../../modals/AddModal";
 import EditModal from "../../modals/EditModal";
 import DeleteDialog from "../../modals/DeleteDialog";
 import SearchBar from "../SearchBar";
 
-const columns = [
-  { id: "userName", label: "NAME", align: "left" },
-  { id: "email", label: "EMAIL", align: "left" },
-  {
-    id: "isMaster",
-    label: "AUTHORITY",
-    align: "left",
-    format: (value) => (value ? "Master Admin" : "Admin"),
-  },
-  {
-    id: "createdAt",
-    label: "CREATED AT",
-    align: "left",
-    format: (value) => new Date(value).toLocaleDateString(),
-  },
-  {
-    id: "action",
-    label: "ACTION",
-    align: "center",
-  },
-];
-
 export default function DataTable(props) {
-  const { adminTable } = props;
+  const { adminTable = false } = props;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [valueToOrderBy, setvalueToOrderBy] = useState("name");
@@ -51,15 +31,15 @@ export default function DataTable(props) {
   const [modalType, setModalType] = useState("");
   const dispatch = useDispatch();
   
-  const keys = ["userName", "email"];
+  const keys = adminTable?["userName", "email"]:["userName","rollNumber"];
   const search = (q) => {
     if(q==="")
     {
       return data
     }
-    const query = q?.toLowerCase();
+    const query = q?.toLowerCase() || q;
     const newData = data?.filter((el) =>
-      keys.some((key) => el[key]?.toLowerCase().includes(query))
+      keys.some((key) => el[key]?.toString()?.toLowerCase().includes(query))
     );
     return newData;
   };
@@ -113,9 +93,9 @@ export default function DataTable(props) {
     setPage(0);
   };
 
-  const getAdmin = async () => {
+  const getData = async () => {
     try {
-      const response = await get_admin();
+      const response = adminTable? await get_admins():await get_students();
       setData(response?.data);
     } catch (err) {
       dispatch(
@@ -139,9 +119,7 @@ export default function DataTable(props) {
     }
   };
   useEffect(() => {
-   
-      getAdmin();
-    
+      getData();
   }, []);
 
   return (
@@ -151,7 +129,7 @@ export default function DataTable(props) {
         <TableContainer className="table-container">
           <Table stickyHeader aria-label="sticky table">
             <TableHeader
-              columns={columns}
+              columns={adminTable?adminColumns:studentColumns}
               handleRequestSort={handleRequestSort}
               orderDirection={orderDirection}
               valueToOrderBy={valueToOrderBy}
@@ -161,9 +139,10 @@ export default function DataTable(props) {
               data={searchData}
               page={page}
               rowsPerPage={rowsPerPage}
-              columns={columns}
+              columns={adminTable?adminColumns:studentColumns}
               handleOpen={handleOpen}
               searchData={searchData}
+              adminTable={adminTable}
             />
           </Table>
         </TableContainer>
@@ -190,7 +169,8 @@ export default function DataTable(props) {
           open={open}
           handleClose={handleClose}
           modalType={modalType}
-          getAdmin={getAdmin}
+          getData={getData}
+          adminTable={adminTable}
         />
       )}
       {modalType === "edit" && (
@@ -199,7 +179,9 @@ export default function DataTable(props) {
           handleClose={handleClose}
           modalType={modalType}
           rowData={rowData}
-          getAdmin={getAdmin}
+          getData={getData}
+          adminTable={adminTable}
+
         />
       )}
       {modalType === "delete" && (
@@ -208,7 +190,9 @@ export default function DataTable(props) {
           handleClose={handleClose}
           modalType={modalType}
           rowData={rowData}
-          getAdmin={getAdmin}
+          getData={getData}
+          adminTable={adminTable}
+
         />
       )}
     </div>

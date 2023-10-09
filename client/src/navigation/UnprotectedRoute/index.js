@@ -12,10 +12,10 @@ const UnprotectedRoute = ({children}) => {
   {
     if(admin?.isMaster)
     {
-        return <Navigate to={ADMIN_ROUTE.dashboard} />
+        return <Navigate to={ADMIN_ROUTE.adminDashboard} />
     }
     else{
-        return <div></div>
+        return <Navigate to={ADMIN_ROUTE.studentDashboard} />
     }
   }
   return children

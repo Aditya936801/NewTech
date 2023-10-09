@@ -11,7 +11,8 @@ import { LANDING_ROUTE } from "./navigation/routes/landingRoutes";
 import { LOGIN_ROUTE } from "./navigation/routes/loginRoutes";
 import HomePage from "./pages/HomePage";
 const LoginPage = React.lazy(() => import("./pages/Admin/Login"));
-const DashBoard = React.lazy(() => import("./pages/Admin/DashBoard"));
+const AdminDashBoard = React.lazy(() => import("./pages/Admin/AdminDashBoard"));
+const StudentDashBoard = React.lazy(() => import("./pages/Admin/StudentDashBoard"));
 
 const App = () => {
   const theme = createTheme({
@@ -30,11 +31,9 @@ const App = () => {
             <Route
               path={LANDING_ROUTE.home}
               element={
-                
                   <UnprotectedRoute>
                     <HomePage />
                   </UnprotectedRoute>
-              
               }
             />
             <Route
@@ -48,11 +47,21 @@ const App = () => {
               }
             />
             <Route
-              path={ADMIN_ROUTE.dashboard}
+              path={ADMIN_ROUTE.adminDashboard}
               element={
                 <Suspense fallback={<Loader/>}>
                   <ProtectedRoute>
-                    <DashBoard />
+                    <AdminDashBoard />
+                  </ProtectedRoute>
+                </Suspense>
+              }
+            />
+            <Route
+              path={ADMIN_ROUTE.studentDashboard}
+              element={
+                <Suspense fallback={<Loader/>}>
+                  <ProtectedRoute>
+                    <StudentDashBoard />
                   </ProtectedRoute>
                 </Suspense>
               }

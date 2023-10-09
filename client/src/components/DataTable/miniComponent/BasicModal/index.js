@@ -1,9 +1,9 @@
 import { Typography, Box, Modal } from "@mui/material";
 import "./basicModal.css";
 import AdminDataForm from "../../../../modals/miniComponent/Form/AdminDataForm";
-
+import StudentDataForm from "../../../../modals/miniComponent/Form/StudentDataForm";
 const BasicModal = (props) => {
-    const { open, handleClose, getAdmin, modalType,rowData } = props;
+    const { open,adminTable, handleClose, getData, modalType,rowData } = props;
   
   return (
     
@@ -22,13 +22,22 @@ const BasicModal = (props) => {
           >
             {modalType==="add"?"ADD ADMIN":"EDIT ADMIN"}
           </Typography>
-          <AdminDataForm
+          {
+            adminTable?
+            <AdminDataForm
             handleClose={handleClose}
             modalType={modalType}
-           getAdmin={getAdmin}
-            rowData={rowData}
-            
-          />
+           getAdmin={getData}
+           rowData={rowData}
+           
+           />:
+           <StudentDataForm
+           handleClose={handleClose}
+           modalType={modalType}
+          getAdmin={getData}
+          rowData={rowData}
+           />
+          }
         </Box>
       </Modal>
     

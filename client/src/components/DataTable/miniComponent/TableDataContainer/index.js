@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const TableDataContainer = (props) => {
-  const { data, page, rowsPerPage, columns,handleOpen} = props;
+  const { data, page, rowsPerPage, columns,handleOpen,adminTable} = props;
   return (
     <TableBody>
       {data
@@ -20,7 +20,7 @@ const TableDataContainer = (props) => {
                 const value = row[column.id];
                 return (
                   <TableCell align={column.align} key={column.id}>
-                  {column.id === "action"? <ActionIcons handleOpen={handleOpen} rowData={row}  /> :
+                  {column.id === "action"? <ActionIcons handleOpen={handleOpen} rowData={row} adminTable={adminTable}  /> :
                     <div className="table-data">
                       {column.format ? column.format(value) : value}
                     </div>}
@@ -39,13 +39,13 @@ export default TableDataContainer;
 
 const ActionIcons=(props)=>{
   const {
-    isAdminData=true,
+    adminTable,
     handleOpen,
     rowData
   }=props
   return(
     <div>
-    {!isAdminData &&
+    {!adminTable &&
       <IconButton className="table-icon" color="primary" >
       <VisibilityIcon color="primary" />
       </IconButton>

@@ -1,7 +1,9 @@
+import {LANDING_ROUTE} from "../../navigation/routes/landingRoutes"
+import {ADMIN_ROUTE} from "../../navigation/routes/adminRoutes"
 const navUser = [
     {
       name:"HOME",
-      link:"/",
+      link:LANDING_ROUTE.home,
     },
     {
       name:"REGISTRATION",
@@ -15,11 +17,11 @@ const navUser = [
   const navAdmin = [
     {
       name:"DASHBOARD",
-      link:"/admin/dashboard",
+      link:ADMIN_ROUTE.adminDashboard,
     },
     {
       name:"STUDENT",
-      link:"/admin/student",
+      link:ADMIN_ROUTE.studentDashboard,
     },
     {
       name:"CERTIFICATE",

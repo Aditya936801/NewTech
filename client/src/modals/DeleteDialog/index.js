@@ -8,7 +8,7 @@ import { setSnackbar } from '../../store/global/globalReducer';
 import { useDispatch } from 'react-redux';
 
 const DeleteDialog=(props)=> {
-  const { open, handleClose,  rowData,getAdmin } = props;
+  const { open, handleClose,  rowData,getData } = props;
   const dispatch=useDispatch()
   const handleDelete = async()=>{
     try {
@@ -22,7 +22,7 @@ const DeleteDialog=(props)=> {
           },
         })
       );
-     getAdmin()
+     getData()
       handleClose()
       
     } catch (err) {

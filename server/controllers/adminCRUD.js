@@ -62,7 +62,7 @@ export const updateAdmin = async (req, res) => {
   }
 };
 
-export const getAdmin = async (req, res) => {
+export const getAdmins = async (req, res) => {
   try {
     const admin = await Admin.find().sort({ createdAt: -1 });
 

@@ -3,15 +3,16 @@ import BasicModal from "../../components/DataTable/miniComponent/BasicModal";
 import "../modal.css";
 
 const EditModal = (props) => {
-  const { open, handleClose, modalType, rowData,getAdmin } = props;
+  const { open,adminTable,handleClose, modalType, rowData,getData } = props;
   return (
     <div>
       <BasicModal
         open={open}
         handleClose={handleClose}
         modalType={modalType}
-        getAdmin={getAdmin}
+        getData={getData}
         rowData={rowData}
+        adminTable={adminTable} 
         
       />
     </div>

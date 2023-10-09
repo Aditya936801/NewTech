@@ -7,15 +7,13 @@ const ProtectedRoute = ({ children }) => {
   const token = useSelector(getToken);
   const admin = useSelector(getAdminData);
   const isAuth = token !== "";
-  console.log(isAuth)
   if (isAuth) {
     if (admin?.isMaster) {
       return children;
     } else {
-      if(window.location.pathname===ADMIN_ROUTE.dashboard)
+      if(window.location.pathname===ADMIN_ROUTE.adminDashboard)
       {
-        return <Navigate to={LANDING_ROUTE.home} />;
-
+        return <Navigate to={ADMIN_ROUTE.studentDashboard} />;
       }
       else{
         return children

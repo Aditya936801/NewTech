@@ -4,12 +4,12 @@ import {store} from "../../store"
 import { getToken } from "../../store/auth/authSelector"
 const endpoints ={
     create:"/admin/createAdmin",
-    get:"/admin/getAdmin",
+    get:"/admin/getAdmins",
     update:"/admin/updateAdmin",
     delete:"/admin/deleteAdmin",
 }
 
-export const get_admin = async()=>{
+export const get_admins = async()=>{
   const state = store.getState()
   const token = getToken(state)
     const response = await axios.get(BASE_URL + endpoints.get,{headers:{Authorization:"Bearer "+token}});
