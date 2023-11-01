@@ -6,7 +6,6 @@ const BasicModal = (props) => {
     const { open,adminTable, handleClose, getData, modalType,rowData } = props;
   
   return (
-    
       <Modal
         open={open}
         onClose={handleClose}
@@ -20,7 +19,7 @@ const BasicModal = (props) => {
             variant="h5"
             component="h2"
           >
-            {modalType==="add"?"ADD ADMIN":"EDIT ADMIN"}
+            {adminTable?modalType==="add"?"ADD ADMIN":"EDIT ADMIN":modalType==="add"?"REGISTER STUDENT":"EDIT STUDENT"}
           </Typography>
           {
             adminTable?
@@ -34,7 +33,7 @@ const BasicModal = (props) => {
            <StudentDataForm
            handleClose={handleClose}
            modalType={modalType}
-          getAdmin={getData}
+          getStudent={getData}
           rowData={rowData}
            />
           }

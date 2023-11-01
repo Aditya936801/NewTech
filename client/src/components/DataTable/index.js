@@ -13,13 +13,12 @@ import TableDataContainer from "./miniComponent/TableDataContainer";
 import { Button } from "@mui/material";
 import "./dataTable.css";
 import { adminColumns,studentColumns } from "./utils";
-import AddModal from "../../modals/AddModal";
-import EditModal from "../../modals/EditModal";
+import BasicModal from "./miniComponent/BasicModal";
 import DeleteDialog from "../../modals/DeleteDialog";
 import SearchBar from "../SearchBar";
 
 export default function DataTable(props) {
-  const { adminTable = false } = props;
+  const { adminTable } = props;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [valueToOrderBy, setvalueToOrderBy] = useState("name");
@@ -124,7 +123,7 @@ export default function DataTable(props) {
 
   return (
     <div>
-      <SearchBar handleSearch={handleSearch} query={query} />
+      <SearchBar placeholder={adminTable?"Search Admin":"Search Student"} handleSearch={handleSearch} query={query} />
       <Paper className="table-wrapper">
         <TableContainer className="table-container">
           <Table stickyHeader aria-label="sticky table">
@@ -164,26 +163,11 @@ export default function DataTable(props) {
       >
         add
       </Button>
-      {modalType === "add" && (
-        <AddModal
-          open={open}
-          handleClose={handleClose}
-          modalType={modalType}
-          getData={getData}
-          adminTable={adminTable}
-        />
+      {(modalType === "add" || modalType === "edit") && (
+      <BasicModal adminTable={adminTable} open={open} handleClose={handleClose} getData={getData} modalType={modalType} rowData={rowData}  />
+       
       )}
-      {modalType === "edit" && (
-        <EditModal
-          open={open}
-          handleClose={handleClose}
-          modalType={modalType}
-          rowData={rowData}
-          getData={getData}
-          adminTable={adminTable}
-
-        />
-      )}
+     
       {modalType === "delete" && (
         <DeleteDialog
           open={open}

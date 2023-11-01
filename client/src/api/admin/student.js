@@ -16,3 +16,23 @@ export const get_students = async()=>{
       return response
   
   }
+
+  export const create_student = async(newRow)=>{
+    const state = store.getState()
+    const token = getToken(state)
+      const response = await axios.post(BASE_URL + endpoints.create,
+      newRow,{headers:{Authorization:"Bearer "+token}}
+    );
+      return response
+  
+  }
+
+  export const update_student = async(row)=>{
+    const state = store.getState()
+    const token = getToken(state)
+      const response = await axios.post(BASE_URL + endpoints.update,
+      row,{headers:{Authorization:"Bearer "+token}}
+    );
+      return response
+  
+  }

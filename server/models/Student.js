@@ -18,7 +18,7 @@ const StudentSchema = new mongoose.Schema({
     max: 50,
   },
   dob:{
-    type: String,
+    type: Number,
     require: true,
   },
   address:{
@@ -26,14 +26,16 @@ const StudentSchema = new mongoose.Schema({
     require: true,
   },
   mobileNumber:{
-    type:Number,
-    require:true,
-    min:1000000000,
-    max:9999999999,
-  },
-  profilePicture:{
     type:String,
     require:true,
+  },
+  profilePicture:{
+    name:{
+      type:String
+    },
+    image:{
+      type:String
+    }
   }
 },{
   timestamps:true

@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./searchBar.css"
 
 const SearchBar = (props) => {
-  const {placeholder="Search Admin",handleSearch,query} = props
+  const {placeholder,handleSearch,query} = props
   return (
     <div className="search-bar">
     <TextField

@@ -34,7 +34,7 @@ const AdminDataForm = (props) => {
   })
  
 
-  const operationAdmin = async (row) => {
+  const AddOrUpdateAdmin = async (row) => {
     try {
       const response =
        modalType === "edit" ? await update_admin(row) : await create_admin(row);
@@ -86,9 +86,9 @@ const AdminDataForm = (props) => {
         isMaster:formData.isMaster
       }
   if (modalType === "add") {
-      operationAdmin(values);
+    AddOrUpdateAdmin(values);
     } else {
-      operationAdmin({ ...values, _id: rowData?._id });
+      AddOrUpdateAdmin({ ...values, _id: rowData?._id });
     }
     }
   };

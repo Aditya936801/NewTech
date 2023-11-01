@@ -7,8 +7,12 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
+  
   auth: { user: process.env.EMAIL, pass: process.env.PASSWORD },
+
+
+
 });
 
 export const sendOtp = async (req, res) => {
@@ -51,7 +55,7 @@ export const sendOtp = async (req, res) => {
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          res.status(400).json({ message: "OTP Not Send" });
+          res.status(400).json({ message: "OTP Not Send",error:error.message });
         } else {
           res.status(200).json({ message: "OTP  Send" });
         }

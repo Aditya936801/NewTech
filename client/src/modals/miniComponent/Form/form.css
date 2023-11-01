@@ -6,14 +6,44 @@
     height: 100%;
     justify-content: space-around;
 
+    
+
+}
+.student-form-container{
+  gap: 20px;
+  
+}
+.student-image-name{
+  font-size: 13px;
 }
 
 .form-select{
-    width: 100px;
+  width: 200px;
 }
+
+.student-profile-update-button{
+  width: 200px;
+}
+
 
 .type-number input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 
+}
+
+@media screen and (max-width: 600px) {
+  .student-profile-update-button{
+    min-width: 170px;
+  }
+  .student-image-name{
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 420px) {
+ 
+  .student-image-name{
+    word-wrap: break-word;
+    max-width: 100px;
+  }
 }
