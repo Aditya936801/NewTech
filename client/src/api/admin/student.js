@@ -36,3 +36,12 @@ export const get_students = async()=>{
       return response
   
   }
+
+  export const delete_student = async(_id)=>{
+    const state = store.getState()
+    const token = getToken(state)
+      const response = await axios.post(BASE_URL + endpoints.delete,
+      {_id},{headers:{Authorization:"Bearer "+token}}
+    );
+      return response
+  }

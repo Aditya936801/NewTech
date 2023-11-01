@@ -47,7 +47,7 @@ const LoginPage = () => {
       );
       navigate(LANDING_ROUTE.home)
     } catch (err) {
-      console.log(err)
+  
       dispatch(
         setSnackbar({
           snackbar: {

@@ -32,7 +32,7 @@ const Form = ({email,setEmail,setIsOtpSend}) => {
       );
       setIsOtpSend(true);
     } catch (err) {
-      console.log(err);
+      
 
       setIsLoading(false);
       dispatch(

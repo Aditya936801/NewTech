@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers["Authorization"];
-    console.log(token)
+  
     if (token) {
       if (token.startsWith("Bearer ")) {
         token = token.slice(7, token.length).trimLeft();
@@ -28,7 +28,7 @@ export const verifyMasterToken = async (req, res, next) => {
     let token = req?.headers?.authorization;
     if (token) {
       if (token.startsWith("Bearer ")) {
-        console.log("first")
+
         token = token.slice(7, token.length).trimLeft();
         const verified = jwt.verify(token, process.env.MASTER_JWT_SECRET);
         next();

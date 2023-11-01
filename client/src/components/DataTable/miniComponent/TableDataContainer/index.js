@@ -46,7 +46,7 @@ const ActionIcons=(props)=>{
   return(
     <div>
     {!adminTable &&
-      <IconButton className="table-icon" color="primary" >
+      <IconButton className="table-icon" color="primary" onClick={handleOpen("view",rowData)} >
       <VisibilityIcon color="primary" />
       </IconButton>
     }

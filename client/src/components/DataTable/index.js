@@ -15,6 +15,7 @@ import "./dataTable.css";
 import { adminColumns,studentColumns } from "./utils";
 import BasicModal from "./miniComponent/BasicModal";
 import DeleteDialog from "../../modals/DeleteDialog";
+import ViewModal from "../../modals/ViewModal";
 import SearchBar from "../SearchBar";
 
 export default function DataTable(props) {
@@ -172,7 +173,6 @@ export default function DataTable(props) {
         <DeleteDialog
           open={open}
           handleClose={handleClose}
-          modalType={modalType}
           rowData={rowData}
           getData={getData}
           adminTable={adminTable}

@@ -34,11 +34,11 @@ export const update_admin = async(row)=>{
     return response
 
 }
-export const delete_admin = async(row)=>{
+export const delete_admin = async(_id)=>{
   const state = store.getState()
   const token = getToken(state)
     const response = await axios.post(BASE_URL + endpoints.delete,
-    row,{headers:{Authorization:"Bearer "+token}}
+    {_id},{headers:{Authorization:"Bearer "+token}}
   );
     return response
 

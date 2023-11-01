@@ -19,7 +19,6 @@ const intialDob = dayjs("01-01-2010").$d.getTime();
 const StudentDataForm = (props) => {
   const { modalType, getStudent, handleClose, rowData = {} } = props;
   const dispatch = useDispatch();
-  console.log(rowData)
   const intialValue =
     modalType === "add"
       ? {
@@ -73,7 +72,7 @@ const StudentDataForm = (props) => {
     }
   };
   const handleDOBChange = (e) => {
-    console.log(e)
+  
     setFormData({ ...formData, dob: e.$d.getTime() });
   };
   const handlePhotoChange = async (e) => {
@@ -116,7 +115,6 @@ const StudentDataForm = (props) => {
       tempErrors = { ...tempErrors, fatherName: fatherNameValidation };
     }
     if (!formData?.profilePicture?.name) {
-      console.log(formData?.profilePicture?.name);
       tempErrors = {
         ...tempErrors,
         profilePicture: {
@@ -154,7 +152,6 @@ const StudentDataForm = (props) => {
       );
       handleClose();
     } catch (err) {
-      console.log(err);
       dispatch(
         setSnackbar({
           snackbar: {
@@ -184,7 +181,7 @@ const StudentDataForm = (props) => {
       };
       if (modalType === "add") {
          AddOrUpdateStudent(values);
-        console.log(values)
+      
       } else {
         AddOrUpdateStudent({ ...values, _id: rowData?._id });
       }
