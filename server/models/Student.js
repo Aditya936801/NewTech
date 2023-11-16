@@ -36,7 +36,21 @@ const StudentSchema = new mongoose.Schema({
     image:{
       type:String
     }
-  }
+  },
+  currentDiploma:{
+    type:String,
+    default:"None"
+  },
+  currentCourse:{
+    type:String,
+    default:"NONE"
+  },
+  certified:[
+    {
+      type:String,
+    }
+  ]
+  
 },{
   timestamps:true
 });

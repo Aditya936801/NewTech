@@ -13,7 +13,7 @@ import TableDataContainer from "./miniComponent/TableDataContainer";
 import { Button } from "@mui/material";
 import "./dataTable.css";
 import { adminColumns,studentColumns } from "./utils";
-import BasicModal from "./miniComponent/BasicModal";
+import BasicModal from "../../modals/BasicModal";
 import DeleteDialog from "../../modals/DeleteDialog";
 import ViewModal from "../../modals/ViewModal";
 import SearchBar from "../SearchBar";
@@ -175,6 +175,15 @@ export default function DataTable(props) {
           handleClose={handleClose}
           rowData={rowData}
           getData={getData}
+          adminTable={adminTable}
+
+        />
+      )}
+      {modalType === "view" && (
+        <ViewModal
+          open={open}
+          handleClose={handleClose}
+          rowData={rowData}
           adminTable={adminTable}
 
         />

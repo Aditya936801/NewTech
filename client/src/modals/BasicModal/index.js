@@ -1,7 +1,7 @@
 import { Typography, Box, Modal } from "@mui/material";
 import "./basicModal.css";
-import AdminDataForm from "../../../../modals/miniComponent/Form/AdminDataForm";
-import StudentDataForm from "../../../../modals/miniComponent/Form/StudentDataForm";
+import AdminDataForm from "../miniComponent/Form/AdminDataForm";
+import StudentDataForm from "../miniComponent/Form/StudentDataForm";
 const BasicModal = (props) => {
     const { open,adminTable, handleClose, getData, modalType,rowData } = props;
   

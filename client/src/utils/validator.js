@@ -4,7 +4,7 @@ export const emailValidation=(email)=>{
 }
 
 export const nameValidation=(name)=>{
-    const nameRegex = /^[A-Za-z]+$/
+    const nameRegex = /^[A-Za-z ]+$/
     if(name.length<3)
     {
         return {

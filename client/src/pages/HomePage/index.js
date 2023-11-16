@@ -15,9 +15,8 @@ const HomePage = () => {
     let currenttop = 0;
     if (obj.offsetParent) {
       do {
-    
         currenttop += obj.offsetTop;
-      } while ((obj = obj.offsetParent));
+      } while ((obj === obj.offsetParent));
     currenttop=currenttop-70
       return [currenttop];
     }
