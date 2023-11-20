@@ -13,6 +13,7 @@ import HomePage from "./pages/HomePage";
 const LoginPage = React.lazy(() => import("./pages/Admin/Login"));
 const AdminDashBoard = React.lazy(() => import("./pages/Admin/AdminDashBoard"));
 const StudentDashBoard = React.lazy(() => import("./pages/Admin/StudentDashBoard"));
+const CertificateDashBoard = React.lazy(() => import("./pages/Admin/CertificateDashBoard"))
 
 const App = () => {
   const theme = createTheme({
@@ -62,6 +63,16 @@ const App = () => {
                 <Suspense fallback={<Loader/>}>
                   <ProtectedRoute>
                     <StudentDashBoard />
+                  </ProtectedRoute>
+                </Suspense>
+              }
+            />
+            <Route
+              path={ADMIN_ROUTE.certificateDashboard}
+              element={
+                <Suspense fallback={<Loader/>}>
+                  <ProtectedRoute>
+                    <CertificateDashBoard />
                   </ProtectedRoute>
                 </Suspense>
               }

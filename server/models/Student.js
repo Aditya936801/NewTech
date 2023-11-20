@@ -39,11 +39,11 @@ const StudentSchema = new mongoose.Schema({
   },
   currentDiploma:{
     type:String,
-    default:"None"
+    
   },
   currentCourse:{
     type:String,
-    default:"NONE"
+    
   },
   certified:[
     {

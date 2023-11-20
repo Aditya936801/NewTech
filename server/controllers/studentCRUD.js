@@ -34,6 +34,8 @@ export const updateStudent = async (req, res) => {
     profilePicture,
     address,
     mobileNumber,
+    currentDiploma,
+    currentCourse,
   } = req.body;
   try {
     const preStudent = await Student.findOne({
@@ -61,6 +63,8 @@ export const updateStudent = async (req, res) => {
         profilePicture,
         address,
         mobileNumber,
+        currentDiploma,
+        currentCourse
       };
       const updated = await Student.findOneAndUpdate({ _id: _id }, update, {
         new: true,

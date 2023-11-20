@@ -27,7 +27,6 @@ export const courses = [
   {
     name: "DCP",
     image: two,
-
     tagline: "Master the art of programming in just 6 months with our Diploma",
     fee: "4000",
     detail: {
@@ -65,7 +64,6 @@ export const courses = [
   {
     name: "DCFA",
     image: four,
-
     tagline:
       "Unlock your potential with our 6-month Diploma in Computer Financial Accounting",
     fee: "4000",

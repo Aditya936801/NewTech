@@ -21,8 +21,8 @@ const ViewModal = (props) => {
             <div className="vm-text"><b>Mobile Number : </b>{rowData?.mobileNumber}</div>
             <div className="vm-text"><b>Date Of Birth : </b>{DOB}</div>
             <div className="vm-text"><b>Address : </b>{rowData?.address}</div>
-            <div className="vm-text"><b>Current Course : </b>{rowData?.currentCourse}</div>
-            <div className="vm-text"><b>Current Diploma : </b>{rowData?.currentDiploma}</div>
+            <div className="vm-text"><b>Current Course : </b>{rowData?.currentCourse ? rowData?.currentCourse:"NONE" }</div>
+            <div className="vm-text"><b>Current Diploma : </b>{rowData?.currentDiploma ? rowData?.currentDiploma:"NONE" }</div>
             <div className="vm-text"><b>Certified : </b>{certified}</div>
           </Box>
           <img

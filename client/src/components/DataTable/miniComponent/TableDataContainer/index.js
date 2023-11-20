@@ -4,11 +4,11 @@ import "../../dataTable.css";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 
 const TableDataContainer = (props) => {
-  const { data, page, rowsPerPage, columns,handleOpen,adminTable} = props;
+  const { data, page, rowsPerPage, columns,handleOpen,tableType} = props;
   return (
     <TableBody>
       {data
@@ -20,7 +20,7 @@ const TableDataContainer = (props) => {
                 const value = row[column.id];
                 return (
                   <TableCell align={column.align} key={column.id}>
-                  {column.id === "action"? <ActionIcons handleOpen={handleOpen} rowData={row} adminTable={adminTable}  /> :
+                  {column.id === "action"? <ActionIcons handleOpen={handleOpen} rowData={row} tableType={tableType}  /> :
                     <div className="table-data">
                       {column.format ? column.format(value) : value}
                     </div>}
@@ -39,13 +39,23 @@ export default TableDataContainer;
 
 const ActionIcons=(props)=>{
   const {
-    adminTable,
+    tableType,
     handleOpen,
     rowData
   }=props
+  if(tableType==="certificate")
+  {
+    return(
+      <div>
+      <IconButton className="table-icon" color="primary" onClick={handleOpen("view",rowData)} >
+      <FileUploadOutlinedIcon color="warning" />
+      </IconButton>
+      </div>
+    )
+  }
   return(
     <div>
-    {!adminTable &&
+    {tableType==="student" &&
       <IconButton className="table-icon" color="primary" onClick={handleOpen("view",rowData)} >
       <VisibilityIcon color="primary" />
       </IconButton>

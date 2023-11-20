@@ -8,8 +8,7 @@ const AdminDashBoard = () => {
   return (
     <Wrapper>
     <div className="admin-dashboard-wrapper">
-
-    <DataTable adminTable={true}    />
+    <DataTable tableType="admin"    />
     </div>
     </Wrapper>
   );

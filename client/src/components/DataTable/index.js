@@ -19,7 +19,8 @@ import ViewModal from "../../modals/ViewModal";
 import SearchBar from "../SearchBar";
 
 export default function DataTable(props) {
-  const { adminTable } = props;
+  const { tableType } = props;
+  const adminTable = tableType==="admin"
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [valueToOrderBy, setvalueToOrderBy] = useState("name");
@@ -30,6 +31,7 @@ export default function DataTable(props) {
   const [rowData, setRowData] = useState(null);
   const [modalType, setModalType] = useState("");
   const dispatch = useDispatch();
+ 
   
   const keys = adminTable?["userName", "email"]:["userName","rollNumber"];
   const search = (q) => {
@@ -134,7 +136,6 @@ export default function DataTable(props) {
               orderDirection={orderDirection}
               valueToOrderBy={valueToOrderBy}
             />
-
             <TableDataContainer
               data={searchData}
               page={page}
@@ -142,7 +143,7 @@ export default function DataTable(props) {
               columns={adminTable?adminColumns:studentColumns}
               handleOpen={handleOpen}
               searchData={searchData}
-              adminTable={adminTable}
+              tableType={tableType}
             />
           </Table>
         </TableContainer>
@@ -165,7 +166,7 @@ export default function DataTable(props) {
         add
       </Button>
       {(modalType === "add" || modalType === "edit") && (
-      <BasicModal adminTable={adminTable} open={open} handleClose={handleClose} getData={getData} modalType={modalType} rowData={rowData}  />
+      <BasicModal adminTable={adminTable}  open={open} handleClose={handleClose} getData={getData} modalType={modalType} rowData={rowData}  />
        
       )}
      

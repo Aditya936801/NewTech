@@ -3,7 +3,11 @@ import { nameValidation } from "../../../../utils/validator";
 import CustomHelperText from "../../../../components/CustomHelperText";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../../../store/global/globalReducer";
-import { TextField, Button, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+} from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -12,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { base64 } from "../../../../utils/helperFunction";
 import { create_student, update_student } from "../../../../api/admin/student";
+import CustomSelector from "./subComponent/CustomSelector"
 import "../form.css";
 
 const intialDob = dayjs("01-01-2010").$d.getTime();
@@ -32,6 +37,8 @@ const StudentDataForm = (props) => {
           },
           address: "",
           mobileNumber: "",
+          diploma: "",
+          course:"",
         }
       : {
           rollNumber: rowData?.rollNumber,
@@ -42,9 +49,8 @@ const StudentDataForm = (props) => {
             name: rowData?.profilePicture?.name,
             image: rowData?.profilePicture?.image,
           },
-          address:rowData?.address,
-          mobileNumber:rowData?.mobileNumber
-
+          address: rowData?.address,
+          mobileNumber: rowData?.mobileNumber,
         };
   const [formData, setFormData] = useState(intialValue);
   const [error, setError] = useState({
@@ -71,8 +77,13 @@ const StudentDataForm = (props) => {
       setFormData({ ...formData, mobileNumber: num });
     }
   };
+  const handleDiplomaChange = (e) => {
+    setFormData({ ...formData, diploma: e.target.value });
+  };
+  const handleCourseChange = (e) => {
+    setFormData({ ...formData, course: e.target.value });
+  };
   const handleDOBChange = (e) => {
-  
     setFormData({ ...formData, dob: e.$d.getTime() });
   };
   const handlePhotoChange = async (e) => {
@@ -178,10 +189,11 @@ const StudentDataForm = (props) => {
         profilePicture: formData.profilePicture,
         address: formData.address,
         mobileNumber: formData.mobileNumber,
+        currentDiploma:formData.diploma,
+        currentCourse:formData.course
       };
       if (modalType === "add") {
-         AddOrUpdateStudent(values);
-      
+        AddOrUpdateStudent(values);
       } else {
         AddOrUpdateStudent({ ...values, _id: rowData?._id });
       }
@@ -238,13 +250,16 @@ const StudentDataForm = (props) => {
       <TextField
         onChange={handleAddressChange}
         value={formData.address}
-
         name="address"
         required
         label="ADDRESS"
         multiline
         maxRows={2}
       />
+      <div className="form-selector">
+      <CustomSelector value={formData.diploma} handleChange={handleDiplomaChange} courseType="DIPLOMA" />
+      <CustomSelector value={formData.course} handleChange={handleCourseChange} courseType="Course" />
+      </div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
           <DatePicker

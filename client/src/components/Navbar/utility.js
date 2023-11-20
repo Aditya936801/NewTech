@@ -25,7 +25,7 @@ const navUser = [
     },
     {
       name:"CERTIFICATE",
-      link:"/admin/certificate",
+      link:ADMIN_ROUTE.certificateDashboard,
     },
   ]
 
