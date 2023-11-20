@@ -3,7 +3,7 @@ import two from "../images/two.jpg";
 import three from "../images/three.jpg";
 import four from "../images/four.jpg";
 
-export const courses = [
+export const DIPLOMA = [
   {
     name: "ADCP",
     image: one,
@@ -81,7 +81,7 @@ export const courses = [
   },
 ];
 
-export const shortCourses = [
+export const COURSES = [
   {  name: "Windows", duration: "1 Month", fee: "500" },
   {
     

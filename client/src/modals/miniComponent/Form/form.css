@@ -10,9 +10,7 @@
   gap: 20px;
   
 }
-.student-image-name{
-  font-size: 13px;
-}
+
 
 .form-select{
   width: 200px;
@@ -38,18 +36,8 @@
   .student-profile-update-button{
     min-width: 170px;
   }
-  .student-image-name{
-    font-size: 12px;
-  }
   
 .form-selector{
   flex-direction: column;
 }
-}
-@media screen and (max-width: 420px) {
- 
-  .student-image-name{
-    word-wrap: break-word;
-    max-width: 100px;
-  }
 }

@@ -1,4 +1,4 @@
-import { Typography, Box, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import "./viewmodal.css";
 const ViewModal = (props) => {
   const { open, handleClose, rowData } = props;

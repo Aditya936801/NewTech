@@ -1,0 +1,16 @@
+.student-image-name {
+    font-size: 13px;
+}
+
+@media screen and (max-width: 600px) {
+    .student-image-name {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .student-image-name {
+        word-wrap: break-word;
+        max-width: 100px;
+    }
+}

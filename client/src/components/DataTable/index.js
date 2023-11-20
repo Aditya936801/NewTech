@@ -12,15 +12,16 @@ import TableHeader from "./miniComponent/TableHeader";
 import TableDataContainer from "./miniComponent/TableDataContainer";
 import { Button } from "@mui/material";
 import "./dataTable.css";
-import { adminColumns,studentColumns } from "./utils";
+import { adminColumns, studentColumns } from "./utils";
 import BasicModal from "../../modals/BasicModal";
 import DeleteDialog from "../../modals/DeleteDialog";
 import ViewModal from "../../modals/ViewModal";
+import CertificateModal from "../../modals/CertificateModal";
 import SearchBar from "../SearchBar";
 
 export default function DataTable(props) {
   const { tableType } = props;
-  const adminTable = tableType==="admin"
+  const adminTable = tableType === "admin";
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [valueToOrderBy, setvalueToOrderBy] = useState("name");
@@ -31,13 +32,11 @@ export default function DataTable(props) {
   const [rowData, setRowData] = useState(null);
   const [modalType, setModalType] = useState("");
   const dispatch = useDispatch();
- 
-  
-  const keys = adminTable?["userName", "email"]:["userName","rollNumber"];
+
+  const keys = adminTable ? ["userName", "email"] : ["userName", "rollNumber"];
   const search = (q) => {
-    if(q==="")
-    {
-      return data
+    if (q === "") {
+      return data;
     }
     const query = q?.toLowerCase() || q;
     const newData = data?.filter((el) =>
@@ -45,10 +44,9 @@ export default function DataTable(props) {
     );
     return newData;
   };
-  const searchData = useMemo(() => search(query), [query,data]);
+  const searchData = useMemo(() => search(query), [query, data]);
   const handleSearch = (e) => {
     setQuery(e.target.value);
-   
   };
 
   const handleSorting = (a, b, isAscending) => {
@@ -97,7 +95,7 @@ export default function DataTable(props) {
 
   const getData = async () => {
     try {
-      const response = adminTable? await get_admins():await get_students();
+      const response = adminTable ? await get_admins() : await get_students();
       setData(response?.data);
     } catch (err) {
       dispatch(
@@ -121,17 +119,21 @@ export default function DataTable(props) {
     }
   };
   useEffect(() => {
-      getData();
+    getData();
   }, []);
 
   return (
     <div>
-      <SearchBar placeholder={adminTable?"Search Admin":"Search Student"} handleSearch={handleSearch} query={query} />
+      <SearchBar
+        placeholder={adminTable ? "Search Admin" : "Search Student"}
+        handleSearch={handleSearch}
+        query={query}
+      />
       <Paper className="table-wrapper">
         <TableContainer className="table-container">
           <Table stickyHeader aria-label="sticky table">
             <TableHeader
-              columns={adminTable?adminColumns:studentColumns}
+              columns={adminTable ? adminColumns : studentColumns}
               handleRequestSort={handleRequestSort}
               orderDirection={orderDirection}
               valueToOrderBy={valueToOrderBy}
@@ -140,7 +142,7 @@ export default function DataTable(props) {
               data={searchData}
               page={page}
               rowsPerPage={rowsPerPage}
-              columns={adminTable?adminColumns:studentColumns}
+              columns={adminTable ? adminColumns : studentColumns}
               handleOpen={handleOpen}
               searchData={searchData}
               tableType={tableType}
@@ -166,10 +168,16 @@ export default function DataTable(props) {
         add
       </Button>
       {(modalType === "add" || modalType === "edit") && (
-      <BasicModal adminTable={adminTable}  open={open} handleClose={handleClose} getData={getData} modalType={modalType} rowData={rowData}  />
-       
+        <BasicModal
+          adminTable={adminTable}
+          open={open}
+          handleClose={handleClose}
+          getData={getData}
+          modalType={modalType}
+          rowData={rowData}
+        />
       )}
-     
+
       {modalType === "delete" && (
         <DeleteDialog
           open={open}
@@ -177,16 +185,16 @@ export default function DataTable(props) {
           rowData={rowData}
           getData={getData}
           adminTable={adminTable}
-
         />
       )}
       {modalType === "view" && (
-        <ViewModal
+        <ViewModal open={open} handleClose={handleClose} rowData={rowData} />
+      )}
+      {modalType === "certificate" && (
+        <CertificateModal
           open={open}
           handleClose={handleClose}
           rowData={rowData}
-          adminTable={adminTable}
-
         />
       )}
     </div>

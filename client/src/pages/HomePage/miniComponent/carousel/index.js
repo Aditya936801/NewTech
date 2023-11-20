@@ -9,7 +9,7 @@ import "./carousel.css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Button } from "@mui/material";
-import { courses } from "../../../../data/courses";
+import { DIPLOMA } from "../../../../data/courses";
 import BasicModal from "./BasicModal";
 
 const Carousel=()=> {
@@ -37,7 +37,7 @@ const Carousel=()=> {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {courses?.map((el,index) => {
+        {DIPLOMA?.map((el,index) => {
           return (
             <SwiperSlide key={index} className="courses-container">
               <img src={el.image} alt="" />

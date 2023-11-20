@@ -47,7 +47,7 @@ const ActionIcons=(props)=>{
   {
     return(
       <div>
-      <IconButton className="table-icon" color="primary" onClick={handleOpen("view",rowData)} >
+      <IconButton className="table-icon" color="primary" onClick={handleOpen("certificate",rowData)} >
       <FileUploadOutlinedIcon color="warning" />
       </IconButton>
       </div>

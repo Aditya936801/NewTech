@@ -5,11 +5,11 @@ const CertificateSchema = new mongoose.Schema({
       type: String,
       require: true,
     },
-    certificateNumber: {
-      type: Number,
-      require: true,
+    certificateName:{
+      type:String,
+      require:true,
     },
-    profilePicture:{
+    certificatePicture:{
       type:String,
       require:true,
     }

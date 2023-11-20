@@ -3,12 +3,7 @@ import { nameValidation } from "../../../../utils/validator";
 import CustomHelperText from "../../../../components/CustomHelperText";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../../../store/global/globalReducer";
-import {
-  TextField,
-  Button,
-  Box,
-} from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { TextField, Button, Box } from "@mui/material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -16,7 +11,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { base64 } from "../../../../utils/helperFunction";
 import { create_student, update_student } from "../../../../api/admin/student";
-import CustomSelector from "./subComponent/CustomSelector"
+import CustomSelector from "../../CustomSelector";
+import ImagePicker from "../../ImagePicker";
+import { DIPLOMA,COURSES } from "../../../../data/courses";
 import "../form.css";
 
 const intialDob = dayjs("01-01-2010").$d.getTime();
@@ -38,7 +35,7 @@ const StudentDataForm = (props) => {
           address: "",
           mobileNumber: "",
           diploma: "",
-          course:"",
+          course: "",
         }
       : {
           rollNumber: rowData?.rollNumber,
@@ -189,8 +186,8 @@ const StudentDataForm = (props) => {
         profilePicture: formData.profilePicture,
         address: formData.address,
         mobileNumber: formData.mobileNumber,
-        currentDiploma:formData.diploma,
-        currentCourse:formData.course
+        currentDiploma: formData.diploma,
+        currentCourse: formData.course,
       };
       if (modalType === "add") {
         AddOrUpdateStudent(values);
@@ -257,8 +254,18 @@ const StudentDataForm = (props) => {
         maxRows={2}
       />
       <div className="form-selector">
-      <CustomSelector value={formData.diploma} handleChange={handleDiplomaChange} courseType="DIPLOMA" />
-      <CustomSelector value={formData.course} handleChange={handleCourseChange} courseType="Course" />
+        <CustomSelector
+          value={formData.diploma}
+          handleChange={handleDiplomaChange}
+          selectionOption={DIPLOMA}
+          fieldName="diploma"
+        />
+        <CustomSelector
+          value={formData.course}
+          handleChange={handleCourseChange}
+          selectionOption={COURSES}
+          fieldName="course"
+        />
       </div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
@@ -271,33 +278,12 @@ const StudentDataForm = (props) => {
           />
         </DemoContainer>
       </LocalizationProvider>
-      <Box display="flex" flexDirection="column" gap="3px">
-        <Box display="flex" gap="10px" alignItems="flex-end">
-          <Button
-            component="label"
-            variant="contained"
-            color="secondary"
-            className="student-profile-update-button"
-            startIcon={<CloudUploadIcon />}
-          >
-            Upload file
-            <input
-              hidden
-              onChange={handlePhotoChange}
-              type="file"
-              accept="image/*"
-              capture="environment"
-            />
-          </Button>
-          <Box className="student-image-name">
-            {formData.profilePicture.name}
-          </Box>
-        </Box>
-        {error.profilePicture.isError && (
-          <CustomHelperText errorText={error.profilePicture.message} />
-        )}
-      </Box>
-
+      <ImagePicker
+        buttonTitle="Upload Image"
+        handleChange={handlePhotoChange}
+        imageName={formData.profilePicture.name}
+        error={error.profilePicture.message}
+      />
       <Button type="submit" variant="contained">
         {modalType === "edit" ? "update" : "save"}
       </Button>
